@@ -1,0 +1,19 @@
+{
+  "name": "bidsbot",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": ""
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "ethers": "^6.8.1",
+    "ts-node": "^10.9.1"
+  }
+}
