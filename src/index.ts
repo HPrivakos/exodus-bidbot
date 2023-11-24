@@ -14,15 +14,11 @@ const discordClient = new Client({ intents: [] })
 discordClient.login(process.env.DISCORD_TOKEN).then(async () => {
   console.log("Logged in")
   const channel = await discordClient.channels.fetch(process.env.CHANNEL_ID!)
-  //await newBid(channel as TextChannel, 8, "0x521b0fef9cdcf250abaf8e7bc798cbe13fa98692", 10000000000000000000n, true)
-  //await auctionWon(channel as TextChannel, 7, "0xeF38F892E4722152fD8eDb50cD84a96344FD47Ce", 800000000000000000000n)
   contract.on("AuctionBid", async (tokenId, sender, value, extended) => {
-    console.log(tokenId, sender, value, extended)
-
-    //await newBid(channel as TextChannel, tokenId, sender, value, extended)
+    await newBid(channel as TextChannel, tokenId, sender, value, extended)
   })
   contract.on("AuctionSettled", async (tokenId, winner, amount) => {
-    //await auctionWon(channel as TextChannel, tokenId, winner, amount)
+    await auctionWon(channel as TextChannel, tokenId, winner, amount)
   })
   contract.on("AuctionExtended", async (tokenId, endTime) => {
     if (channel instanceof TextChannel) {
@@ -55,12 +51,14 @@ async function newBid(channel: TextChannel, tokenId: number, sender: string, val
     .setTimestamp(new Date())
 
   if (extended) {
+    /*
     embed.addFields([
       {
         name: "Timer extended",
         value: "The timer has been extended by 5 minutes to <t:1700167155>",
       }
     ])
+    */
   }
 
 
